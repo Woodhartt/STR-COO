@@ -1,12 +1,14 @@
-import abstractComp
+from abstractComp import AtomicComponent, Evenement
+
 class Gen(AtomicComponent):
     def __init__(self):
-        super().__init__(self, 0)
+        super().__init__(0)
         self.liste_sortie.append(Evenement.JOB)
 
     def delta_int(self):
         super().delta_int()
         self.etat_courant = self.etat_courant
+        self.e = 0
 
     def delta_ext(self, liste_entree):
         super().delta_ext(liste_entree)

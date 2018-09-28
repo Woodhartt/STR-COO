@@ -8,9 +8,10 @@ class Evenement(Enum):
 class AtomicComponent(ABC):
     def __init__(self, etat_courant):
         self.etat_courant = etat_courant
-        self.etat_suivant = None
+        self.etat_suivant = etat_courant
         self.liste_entree = []
         self.liste_sortie = []
+        self.e = 0
         super().__init__
     
     @abstractmethod
@@ -32,4 +33,8 @@ class AtomicComponent(ABC):
     @abstractmethod
     def get_ta(self):
         pass
+    
+    #@abstractmethod
+    #def calcul_e(self):
+        #pass
 
