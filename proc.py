@@ -36,6 +36,6 @@ class Proc(AtomicComponent):
         if self.etat_courant == 0:
             return math.inf
         elif self.etat_courant == 1:
-            return 2
+            return 2-self.e
         else:
             raise Exception("Seulement 2 etats")

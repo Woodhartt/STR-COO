@@ -27,4 +27,4 @@ class Gen(AtomicComponent):
     
     def get_ta(self):
         super().get_ta()
-        return 1
+        return 1-self.e

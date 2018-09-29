@@ -10,15 +10,15 @@ temps_fin = 10
 liste_comp = [Buf(), Gen(), Proc()]
 
 while(temps <= temps_fin):
-    ta_min = liste_comp[0].get_ta() - liste_comp[0].e
+    ta_min = liste_comp[0].get_ta()
     for i in range(1, len(liste_comp)):
-        tmp = liste_comp[i].get_ta() - liste_comp[i].e
+        tmp = liste_comp[i].get_ta()
         if ta_min > tmp:
             ta_min = tmp
                 
     imminent = []
     for comp in liste_comp:
-        if comp.get_ta() - comp.e == ta_min:
+        if comp.get_ta()  == ta_min:
             imminent.append(comp)
     liste_ev_im = []
     for im in imminent:

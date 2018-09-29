@@ -54,9 +54,6 @@ class Buf(AtomicComponent):
             return math.inf
         else:
             return 0
-    
-    #def calcul_e(self):
-      #  super().calcul_e()
         
 
 

@@ -36,8 +36,5 @@ class AtomicComponent(ABC):
     @abstractmethod
     def get_ta(self):
         pass
-    
-    #@abstractmethod
-    #def calcul_e(self):
-        #pass
+
 
