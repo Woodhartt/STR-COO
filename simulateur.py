@@ -12,18 +12,18 @@ liste_comp = [Buf(), Gen(), Proc()]
 while(temps <= temps_fin):
     ta_min = liste_comp[0].get_ta() - liste_comp[0].e
     for i in range(1, len(liste_comp)):
-        tmp = liste_comp[i].get_ta() - liste_comp[0].e
+        tmp = liste_comp[i].get_ta() - liste_comp[i].e
         if ta_min > tmp:
             ta_min = tmp
-            
+                
     imminent = []
     for comp in liste_comp:
-        if comp.get_ta() == ta_min:
+        if comp.get_ta() - comp.e == ta_min:
             imminent.append(comp)
     liste_ev_im = []
     for im in imminent:
         liste_ev_im += im.f_lambda()
-    
+ 
     for comp in liste_comp:
         if (comp in imminent) and not [evenement for evenement in comp.liste_entree if evenement in liste_ev_im]:
             comp.delta_int()
@@ -33,5 +33,5 @@ while(temps <= temps_fin):
             comp.delta_con(liste_ev_im)
         else:
             comp.e = comp.e + ta_min
-    temps = temps+ta_min
     print(liste_ev_im)
+    temps = temps+ta_min

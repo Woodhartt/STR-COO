@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from abstractComp import AtomicComponent, Evenement
 import math
 class Proc(AtomicComponent):

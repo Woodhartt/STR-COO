@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from abstractComp import AtomicComponent, Evenement 
 import math
 class Buf(AtomicComponent):
@@ -12,7 +15,7 @@ class Buf(AtomicComponent):
         super().delta_int()
         if self.etat_courant == 1:
             self.q = self.q - 1
-            self.etat_suivant == 2
+            self.etat_suivant = 2
             self.e = 0
         self.etat_courant = self.etat_suivant
 
@@ -20,7 +23,7 @@ class Buf(AtomicComponent):
         super().delta_ext(liste_entree)
         if (self.etat_courant == 0 or self.etat_courant == 1) and Evenement.JOB in liste_entree:
             self.q = self.q + 1
-            self.etat_suivant == 1
+            self.etat_suivant = 1
             self.e = 0
         elif self.etat_courant == 2 and Evenement.DONE in liste_entree:
             if self.q > 0:
