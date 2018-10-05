@@ -25,7 +25,8 @@ class Adder(AtomicComponent):
                 if x[0] in [var[0] for var in self.liste_xi]:
                     for var in self.liste_xi:
                         if var[0] == x[0]:
-                            var = x
+                            self.liste_xi.remove(var)
+                            self.liste_xi.append(x)
                 else :
                     self.liste_xi.append(x)
             self.etat_suivant = 1

@@ -5,14 +5,18 @@ from step import Step
 from adder import Adder
 from integrateur import Integrateur
 from abstractComp import Evenement
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 temps = 0
 temps_fin = 10
-liste_comp = [Step(1, 1, 3, 0.65), Step(2, 0, 1, 0.35), Step(3, 0, 1, 1), Step(4, 0, 4, 1.5), Adder(), Integrateur()]
-
+liste_comp = [Step(1, 1, -3, 0.65), Step(2, 0, 1, 0.35), Step(3, 0, 1, 1), Step(4, 0, 4, 1.5), Adder(), Integrateur()]
+liste_points = []
+liste_temps = []
 while(temps <= temps_fin):
     ta_min = liste_comp[0].get_ta()
+    if temps <= 2:
+        liste_temps.append(temps)
+        liste_points.append(liste_comp[5].x)
     for i in range(1, len(liste_comp)):
         tmp = liste_comp[i].get_ta()
         if ta_min > tmp:
@@ -38,5 +42,6 @@ while(temps <= temps_fin):
             comp.delta_con(liste_ev_im)
         else:
             comp.e = comp.e + ta_min
-    print(liste_ev_im)
     temps = temps+ta_min
+plt.plot(liste_temps, liste_points)
+plt.show()
