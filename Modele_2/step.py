@@ -9,12 +9,13 @@ Created on Fri Oct  5 14:57:06 2018
 from abstractComp import AtomicComponent, Evenement
 import math
 class Step(AtomicComponent):
-    def __init__(self, xi, xf, ts):
+    def __init__(self, num, xi, xf, ts):
         super().__init__
+        self.num = num
         self.xi = xi
         self.xf = xf
         self.ts = ts
-        self.liste_sortie.update({Evenement.XI : xi, Evenement.XF : xf})
+        self.liste_sortie.append(Evenement.XV)
     
     def delta_int(self):
         super().delta_int()
@@ -38,9 +39,9 @@ class Step(AtomicComponent):
         super().f_lambda()
         retour = dict()
         if self.etat_courant == 0:
-            retour[Evenement.XI] = self.xi
+            retour[Evenement.XV] = (self.num, self.xi)
         elif self.etat_courant == 1:
-            retour[Evenement.XF] = self.xf
+            retour[Evenement.XV] = (self.num, self.xf)
         return retour
     
     def get_ta(self):

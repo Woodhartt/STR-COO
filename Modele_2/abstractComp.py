@@ -4,17 +4,16 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 class Evenement(Enum):
-    XI = 1
-    XF = 2
-    X_POINT = 3
-    RES = 4
+    XV = 1
+    X_POINT = 2
+    RES = 3
 
 class AtomicComponent(ABC):
     def __init__(self):
         self.etat_courant = 0
         self.etat_suivant = 0
-        self.liste_entree = dict()
-        self.liste_sortie = dict()
+        self.liste_entree = []
+        self.liste_sortie = []
         self.e = 0
         super().__init__
     
