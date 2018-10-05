@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from buf import Buf
-from gen import Gen
-from proc import Proc
-import matplotlib.pyplot as plt
+from step import Step
+from adder import Adder
+from integrateur import Integrateur
+from abstractComp import Evenement
+# import matplotlib.pyplot as plt
 
 temps = 0
 temps_fin = 10
-liste_comp = [Buf(), Gen(), Proc()]
-liste_temps = []
-liste_q = []
+liste_comp = [Step(1, 1, 3, 0.65), Step(2, 0, 1, 0.35), Step(3, 0, 1, 1), Step(4, 0, 4, 1.5), Adder(), Integrateur()]
 
 while(temps <= temps_fin):
     ta_min = liste_comp[0].get_ta()
-    liste_temps.append(temps)
-    liste_q.append(liste_comp[0].q)
     for i in range(1, len(liste_comp)):
         tmp = liste_comp[i].get_ta()
         if ta_min > tmp:
@@ -25,10 +22,13 @@ while(temps <= temps_fin):
     for comp in liste_comp:
         if comp.get_ta()  == ta_min:
             imminent.append(comp)
-    liste_ev_im = []
+    liste_ev_im = {}
     for im in imminent:
-        liste_ev_im += im.f_lambda()
- 
+        evenement = im.f_lambda()
+        if Evenement.XV in liste_ev_im:
+            liste_ev_im[Evenement.XV] += evenement[Evenement.XV]
+        else:
+            liste_ev_im.update(evenement)
     for comp in liste_comp:
         if (comp in imminent) and not [evenement for evenement in comp.liste_entree if evenement in liste_ev_im]:
             comp.delta_int()
@@ -40,5 +40,3 @@ while(temps <= temps_fin):
             comp.e = comp.e + ta_min
     print(liste_ev_im)
     temps = temps+ta_min
-plt.plot(liste_temps, liste_q, 'ro')
-plt.show()

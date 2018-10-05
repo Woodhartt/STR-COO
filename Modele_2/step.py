@@ -10,7 +10,7 @@ from abstractComp import AtomicComponent, Evenement
 import math
 class Step(AtomicComponent):
     def __init__(self, num, xi, xf, ts):
-        super().__init__
+        super().__init__()
         self.num = num
         self.xi = xi
         self.xf = xf
@@ -39,9 +39,9 @@ class Step(AtomicComponent):
         super().f_lambda()
         retour = dict()
         if self.etat_courant == 0:
-            retour[Evenement.XV] = (self.num, self.xi)
+            retour[Evenement.XV] = [(self.num, self.xi)]
         elif self.etat_courant == 1:
-            retour[Evenement.XV] = (self.num, self.xf)
+            retour[Evenement.XV] = [(self.num, self.xf)]
         return retour
     
     def get_ta(self):
