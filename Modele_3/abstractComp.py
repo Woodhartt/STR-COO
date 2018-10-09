@@ -4,10 +4,9 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 class Evenement(Enum):
-    XV = 1
-    X_POINT = 2
-    RES = 3
-    QI = 4
+    CSTE = 1
+    V = 2
+    H = 3
 
 class AtomicComponent(ABC):
     def __init__(self):
