@@ -7,17 +7,17 @@ Created on Fri Oct  5 16:06:25 2018
 """
 
 
-from abstractComp import AtomicComponent, Evenement
+from abstractComp import AtomicComponent
 import math
 class Qss(AtomicComponent):
-    def __init__(self,liste_ev_entree, liste_ev_sortie):
+    def __init__(self, v, liste_ev_entree, liste_ev_sortie):
         super().__init__()
         self.liste_entree += liste_ev_entree
         self.liste_sortie += liste_ev_sortie
         self.delta_v = 10e-4
         self.delta_t = math.inf
         self.v_point = 0
-        self.v = 0
+        self.v = v
     
     def delta_int(self):
         super().delta_int()
@@ -54,7 +54,11 @@ class Qss(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        return {self.liste_sortie[0] : self.v+self.delta_v*(1 if self.v_point >=0 else -1)}
+        if self.v+self.delta_v*(1 if self.v_point >=0 else -1) <= 0:
+            retour = {self.liste_sortie[0] : self.v}
+        else:
+            retour = {self.liste_sortie[0] : self.v+self.delta_v*(1 if self.v_point >=0 else -1)}
+        return retour
     
     def get_ta(self):
         super().get_ta()

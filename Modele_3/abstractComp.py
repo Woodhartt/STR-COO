@@ -7,6 +7,7 @@ class Evenement(Enum):
     CSTE = 1
     V = 2
     H = 3
+    RESETV = 4
 
 class AtomicComponent(ABC):
     def __init__(self):
