@@ -9,11 +9,13 @@ from abstractComp import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0
-temps_fin = 10
+temps_fin = 20
 liste_comp = [Constant([Evenement.CSTE]), QssSpe(0,[Evenement.CSTE, Evenement.RESETV],[Evenement.V]),
               Qss(10,[Evenement.V],[Evenement.H]), Rebond([Evenement.H],[Evenement.RESETV])]
 liste_rebond = []
-liste_temp = []
+liste_temp1 = []
+liste_vitesse = []
+liste_temp2 = []
 while(temps <= temps_fin):
     ta_min = liste_comp[0].get_ta()
     for i in range(1, len(liste_comp)):
@@ -32,8 +34,11 @@ while(temps <= temps_fin):
         liste_ev_im.update(evenement)
         for key in evenement:
             if key == Evenement.H :
-                liste_temp.append(temps)
+                liste_temp1.append(temps)
                 liste_rebond.append(evenement[key])
+            if key == Evenement.V :
+                liste_temp2.append(temps)
+                liste_vitesse.append(evenement[key])
     
     for comp in liste_comp:
         if (comp in imminent) and not [evenement for evenement in comp.liste_entree if evenement in liste_ev_im]:
@@ -45,5 +50,6 @@ while(temps <= temps_fin):
         else:
             comp.e = comp.e + ta_min
     temps = temps+ta_min
-plt.step(liste_temp, liste_rebond, where='post')
+plt.step(liste_temp1, liste_rebond, where='post')
+plt.step(liste_temp2, liste_vitesse, where='post')
 plt.show()

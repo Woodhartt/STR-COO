@@ -44,11 +44,7 @@ class Qss(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        if self.v+self.delta_v*(1 if self.v_point >=0 else -1) <= 0:
-            retour = {self.liste_sortie[0] : self.v}
-        else:
-            retour = {self.liste_sortie[0] : self.v+self.delta_v*(1 if self.v_point >=0 else -1)}
-        return retour
+        return {self.liste_sortie[0] : self.v+self.delta_v*(1 if self.v_point >=0 else -1)}
     
     def get_ta(self):
         super().get_ta()

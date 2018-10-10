@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct  9 17:00:15 2018
-
-@author: Jeremy
-"""
-
 from abstractComp import AtomicComponent
 import math
 class Rebond(AtomicComponent):
@@ -14,11 +6,14 @@ class Rebond(AtomicComponent):
         self.v = 0
         self.liste_entree += liste_entree
         self.liste_sortie += liste_sortie
+        
     
     def delta_int(self):
         super().delta_int()
-        self.etat_suivant = 0
-        self.e = 0
+        if self.etat_courant == 1:
+            self.etat_suivant = 0
+            self.v = 0
+            self.e = 0
         self.etat_courant = self.etat_suivant
 
     def delta_ext(self, liste_entree):
@@ -27,9 +22,12 @@ class Rebond(AtomicComponent):
             keys = [key for key in liste_entree]
             for key in keys:
                 if key in self.liste_entree:
-                    self.v = (-liste_entree[key]*0.8 if liste_entree[key] <= 0 else liste_entree[key])
-                    self.e = 0
-                    self.etat_suivant = 0
+                    if liste_entree[key] <= 0:
+                        self.v = 1
+                        self.e = 0
+                        self.etat_suivant = 1
+                    else:
+                        self.etat_suivant = 0
         self.etat_courant = self.etat_suivant
     
     def delta_con(self, liste_entree):
@@ -42,4 +40,4 @@ class Rebond(AtomicComponent):
     
     def get_ta(self):
         super().get_ta()
-        return math.inf
+        return (math.inf if self.etat_courant == 0 else 0)

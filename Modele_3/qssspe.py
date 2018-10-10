@@ -44,3 +44,5 @@ class QssSpe(Qss):
         elif self.liste_entree[1] in keys:
             self.v *= -0.8
             self.delta_t = 0
+            self.etat_suivant = 0
+            self.e = 0

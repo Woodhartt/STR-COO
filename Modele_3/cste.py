@@ -5,7 +5,7 @@ Created on Tue Oct  9 15:54:23 2018
 
 @author: florian
 """
-from abstractComp import AtomicComponent, Evenement
+from abstractComp import AtomicComponent
 import math
 class Constant(AtomicComponent):
     def __init__(self, liste_sortie):
