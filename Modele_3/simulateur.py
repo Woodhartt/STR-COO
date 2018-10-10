@@ -3,13 +3,14 @@
 
 from cste import Constant
 from qss import Qss
+from qssspe import QssSpe
 from rebond import Rebond
 from abstractComp import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0
 temps_fin = 10
-liste_comp = [Constant([Evenement.CSTE]), Qss(0,[Evenement.CSTE, Evenement.RESETV],[Evenement.V]),
+liste_comp = [Constant([Evenement.CSTE]), QssSpe(0,[Evenement.CSTE, Evenement.RESETV],[Evenement.V]),
               Qss(10,[Evenement.V],[Evenement.H]), Rebond([Evenement.H],[Evenement.RESETV])]
 liste_rebond = []
 liste_temp = []
@@ -44,6 +45,5 @@ while(temps <= temps_fin):
         else:
             comp.e = comp.e + ta_min
     temps = temps+ta_min
-
 plt.step(liste_temp, liste_rebond, where='post')
 plt.show()

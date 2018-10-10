@@ -35,17 +35,7 @@ class Qss(AtomicComponent):
         super().delta_ext(liste_entree)
         if self.etat_courant == 0:
             keys = [key for key in liste_entree]
-            for key in keys:
-                if key in self.liste_entree:
-                    vl = self.v
-                    self.v = self.v + self.e*self.v_point
-                    self.v_point = liste_entree[key]
-                    if self.v_point == 0:
-                        self.delta_t = math.inf
-                    else:
-                        self.delta_t = (self.delta_v-abs(self.v-vl))/abs(self.v_point)
-                    self.etat_suivant = 0
-                    self.e = 0
+            self.traitement_integrale(liste_entree, keys)
         self.etat_courant = self.etat_suivant
         
     def delta_con(self, liste_entree):
@@ -63,3 +53,15 @@ class Qss(AtomicComponent):
     def get_ta(self):
         super().get_ta()
         return self.delta_t - self.e 
+    
+    def traitement_integrale(self, liste_entree, keys):
+        if self.liste_entree[0] in keys:
+            vl = self.v
+            self.v = self.v + self.e*self.v_point
+            self.v_point = liste_entree[self.liste_entree[0]]
+            if self.v_point == 0:
+                self.delta_t = math.inf
+            else:
+                self.delta_t = (self.delta_v-abs(self.v-vl))/abs(self.v_point)
+            self.etat_suivant = 0
+            self.e = 0
