@@ -4,10 +4,14 @@
 from abstractComp import AtomicComponent, Evenement
 import math
 class Proc(AtomicComponent):
-    def __init__(self):
-        super().__init__(0)
-        self.liste_entree.append(Evenement.REQ)
-        self.liste_sortie.append(Evenement.DONE)
+    def __init__(self, liste_entree, liste_sortie):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
+        if len(liste_entree) == 0:
+            raise Exception("Taille de la liste d'entrées infèrieure à ce qui est nécessaire")
+        super().__init__()
+        self.liste_sortie += liste_sortie
+        self.liste_entree += liste_entree
 
     def delta_int(self):
         super().delta_int()
@@ -18,7 +22,7 @@ class Proc(AtomicComponent):
 
     def delta_ext(self, liste_entree):
         super().delta_ext(liste_entree)
-        if self.etat_courant == 0 and Evenement.REQ in liste_entree:
+        if self.etat_courant == 0 and self.liste_entree[0] in liste_entree:
             self.etat_suivant = 1
             self.e = 0
         self.etat_courant = self.etat_suivant
@@ -29,13 +33,13 @@ class Proc(AtomicComponent):
 
     def f_lambda(self):
         super().f_lambda()
-        return ([Evenement.DONE] if self.etat_courant == 1 else [])
+        return ({Evenement.DONE : [0]} if self.etat_courant == 1 else {})
 
     def get_ta(self):
         super().get_ta()
         if self.etat_courant == 0:
             return math.inf
         elif self.etat_courant == 1:
-            return 2-self.e
+            return 3-self.e
         else:
             raise Exception("Seulement 2 etats")

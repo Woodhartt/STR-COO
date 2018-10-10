@@ -8,9 +8,11 @@ Created on Tue Oct  9 15:54:23 2018
 from abstractComp import AtomicComponent
 import math
 class Constant(AtomicComponent):
-    def __init__(self, liste_sortie):
+    def __init__(self, cste, liste_sortie):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
         super().__init__()
-        self.cste = -9.81
+        self.cste = cste
         self.liste_sortie += liste_sortie
     
     def delta_int(self):
@@ -29,7 +31,7 @@ class Constant(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        return {self.liste_sortie[0] : self.cste}
+        return {self.liste_sortie[0] : [self.cste]}
     
     def get_ta(self):
         super().get_ta()

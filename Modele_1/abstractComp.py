@@ -9,9 +9,9 @@ class Evenement(Enum):
     DONE = 3
 
 class AtomicComponent(ABC):
-    def __init__(self, etat_courant):
-        self.etat_courant = etat_courant
-        self.etat_suivant = etat_courant
+    def __init__(self):
+        self.etat_courant = 0
+        self.etat_suivant = 0
         self.liste_entree = []
         self.liste_sortie = []
         self.e = 0

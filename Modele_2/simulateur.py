@@ -10,7 +10,13 @@ import matplotlib.pyplot as plt
 
 temps = 0
 temps_fin = 10
-liste_comp = [Step(1, 1, -3, 0.65), Step(2, 0, 1, 0.35), Step(3, 0, 1, 1), Step(4, 0, 4, 1.5), Adder(), Integrateur(), Qss()]
+liste_comp = [Step(1, 1, -3, 0.65, [Evenement.XV]),
+              Step(2, 0, 1, 0.35, [Evenement.XV]), 
+              Step(3, 0, 1, 1, [Evenement.XV]),
+              Step(4, 0, 4, 1.5, [Evenement.XV]), 
+              Adder([Evenement.XV], [Evenement.X_POINT]),
+              Integrateur([Evenement.X_POINT], [Evenement.RES]),
+              Qss([Evenement.X_POINT], [Evenement.QI])]
 liste_points = []
 liste_qss = []
 liste_somme = []
@@ -32,8 +38,8 @@ while(temps <= temps_fin):
     for im in imminent:
         evenement = im.f_lambda()
         for key in evenement:
-            if key in liste_ev_im and key == Evenement.XV:
-                liste_ev_im[Evenement.XV] += evenement[Evenement.XV]
+            if key in liste_ev_im:
+                liste_ev_im[key] += evenement[key]
             else:
                 liste_ev_im.update(evenement)
             # ZONE DE PRINT 

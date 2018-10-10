@@ -4,11 +4,17 @@
 from abstractComp import AtomicComponent, Evenement 
 import math
 class Buf(AtomicComponent):
-    def __init__(self):
-        super().__init__(0)
-        self.liste_sortie.append(Evenement.REQ)
-        self.liste_entree.append(Evenement.DONE)
-        self.liste_entree.append(Evenement.JOB)
+    def __init__(self, liste_entree, liste_sortie):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
+        if len(liste_entree) < 2:
+            raise Exception("Taille de la liste d'entrées infèrieure à ce qui est nécessaire")
+        super().__init__()
+        #self.liste_sortie.append(Evenement.REQ)
+        #self.liste_entree.append(Evenement.DONE)
+        #self.liste_entree.append(Evenement.JOB)
+        self.liste_sortie += liste_sortie
+        self.liste_entree += liste_entree
         self.q = 0
 
     def delta_int(self):
@@ -21,15 +27,15 @@ class Buf(AtomicComponent):
 
     def delta_ext(self, liste_entree):
         super().delta_ext(liste_entree)
-        if (self.etat_courant == 0 or self.etat_courant == 1) and Evenement.JOB in liste_entree:
+        if (self.etat_courant == 0 or self.etat_courant == 1) and self.liste_entree[0] in liste_entree:
             self.q = self.q + 1
             self.etat_suivant = 1
             self.e = 0
-        elif self.etat_courant == 2 and Evenement.JOB in liste_entree:
+        elif self.etat_courant == 2 and self.liste_entree[0] in liste_entree:
             self.q = self.q + 1
             self.etat_suivant = 2
             self.e = 0
-        elif self.etat_courant == 2 and Evenement.DONE in liste_entree:
+        elif self.etat_courant == 2 and self.liste_entree[1] in liste_entree:
             if self.q > 0:
                 self.etat_suivant = 1
                 self.e = 0
@@ -46,7 +52,7 @@ class Buf(AtomicComponent):
 
     def f_lambda(self):
         super().f_lambda()
-        return ([Evenement.REQ] if self.etat_courant == 1 else [])
+        return ({Evenement.REQ : [0]} if self.etat_courant == 1 else {})
 
     def get_ta(self):
         super().get_ta()

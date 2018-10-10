@@ -6,16 +6,18 @@ Created on Fri Oct  5 14:57:06 2018
 @author: florian
 """
 
-from abstractComp import AtomicComponent, Evenement
+from abstractComp import AtomicComponent
 import math
 class Step(AtomicComponent):
-    def __init__(self, num, xi, xf, ts):
+    def __init__(self, num, xi, xf, ts, liste_sortie):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
         super().__init__()
         self.num = num
         self.xi = xi
         self.xf = xf
         self.ts = ts
-        self.liste_sortie.append(Evenement.XV)
+        self.liste_sortie += liste_sortie
     
     def delta_int(self):
         super().delta_int()
@@ -39,9 +41,9 @@ class Step(AtomicComponent):
         super().f_lambda()
         retour = dict()
         if self.etat_courant == 0:
-            retour[Evenement.XV] = [(self.num, self.xi)]
+            retour[self.liste_sortie[0]] = [(self.num, self.xi)]
         elif self.etat_courant == 1:
-            retour[Evenement.XV] = [(self.num, self.xf)]
+            retour[self.liste_sortie[0]] = [(self.num, self.xf)]
         return retour
     
     def get_ta(self):

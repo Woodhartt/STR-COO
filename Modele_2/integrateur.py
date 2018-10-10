@@ -7,13 +7,17 @@ Created on Fri Oct  5 16:06:25 2018
 """
 
 
-from abstractComp import AtomicComponent, Evenement
+from abstractComp import AtomicComponent
 class Integrateur(AtomicComponent):
-    def __init__(self):
+    def __init__(self, liste_entree, liste_sortie, h=10e-4):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
+        if len(liste_entree) == 0:
+            raise Exception("Taille de la liste d'entrées infèrieure à ce qui est nécessaire")
         super().__init__()
-        self.liste_entree.append(Evenement.X_POINT)
-        self.liste_sortie.append(Evenement.RES)
-        self.h = 10e-4
+        self.liste_entree += liste_entree
+        self.liste_sortie += liste_sortie
+        self.h = h
         self.x_point = 0
         self.x = 0
     
@@ -27,9 +31,9 @@ class Integrateur(AtomicComponent):
     
     def delta_ext(self, liste_entree):
         super().delta_ext(liste_entree)
-        if self.etat_courant == 0 and Evenement.X_POINT in liste_entree:
+        if self.etat_courant == 0 and self.liste_entree[0] in liste_entree:
             self.x = self.x + self.e*self.x_point
-            self.x_point = liste_entree[Evenement.X_POINT]
+            self.x_point = liste_entree[self.liste_entree[0]][0]
             self.etat_suivant = 0
             self.e = 0
         self.etat_courant = self.etat_suivant
@@ -40,7 +44,7 @@ class Integrateur(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        return {Evenement.RES : self.x+self.h*self.x_point}
+        return {self.liste_sortie[0] : [self.x+self.h*self.x_point]}
     
     def get_ta(self):
         super().get_ta()

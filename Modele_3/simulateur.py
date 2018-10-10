@@ -9,8 +9,8 @@ from abstractComp import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0
-temps_fin = 20
-liste_comp = [Constant([Evenement.CSTE]), QssSpe(0,[Evenement.CSTE, Evenement.RESETV],[Evenement.V]),
+temps_fin = 10
+liste_comp = [Constant(-9.81, [Evenement.CSTE]), QssSpe(0,[Evenement.CSTE, Evenement.RESETV],[Evenement.V]),
               Qss(10,[Evenement.V],[Evenement.H]), Rebond([Evenement.H],[Evenement.RESETV])]
 liste_rebond = []
 liste_temp1 = []
@@ -31,7 +31,12 @@ while(temps <= temps_fin):
     liste_ev_im = {}
     for im in imminent:
         evenement = im.f_lambda()
-        liste_ev_im.update(evenement)
+        for key in evenement:
+            if key in liste_ev_im:
+                liste_ev_im[key] += evenement[key]
+            else:
+                liste_ev_im.update(evenement)
+        # Zone De Print
         for key in evenement:
             if key == Evenement.H :
                 liste_temp1.append(temps)
@@ -39,7 +44,7 @@ while(temps <= temps_fin):
             if key == Evenement.V :
                 liste_temp2.append(temps)
                 liste_vitesse.append(evenement[key])
-    
+        # -------
     for comp in liste_comp:
         if (comp in imminent) and not [evenement for evenement in comp.liste_entree if evenement in liste_ev_im]:
             comp.delta_int()

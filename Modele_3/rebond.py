@@ -2,6 +2,10 @@ from abstractComp import AtomicComponent
 import math
 class Rebond(AtomicComponent):
     def __init__(self, liste_entree, liste_sortie):
+        if len(liste_sortie) == 0:
+            raise Exception("Taille de la liste de sorties infèrieure à ce qui est nécessaire")
+        if len(liste_entree) == 0:
+            raise Exception("Taille de la liste d'entrées infèrieure à ce qui est nécessaire")
         super().__init__()
         self.v = 0
         self.liste_entree += liste_entree
@@ -19,15 +23,13 @@ class Rebond(AtomicComponent):
     def delta_ext(self, liste_entree):
         super().delta_ext(liste_entree)
         if self.etat_courant == 0:
-            keys = [key for key in liste_entree]
-            for key in keys:
-                if key in self.liste_entree:
-                    if liste_entree[key] <= 0:
-                        self.v = 1
-                        self.e = 0
-                        self.etat_suivant = 1
-                    else:
-                        self.etat_suivant = 0
+            if self.liste_entree[0] in liste_entree:
+                if liste_entree[self.liste_entree[0]][0] <= 0:
+                    self.v = 1
+                    self.e = 0
+                    self.etat_suivant = 1
+                else:
+                    self.etat_suivant = 0
         self.etat_courant = self.etat_suivant
     
     def delta_con(self, liste_entree):
@@ -36,7 +38,7 @@ class Rebond(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        return {self.liste_sortie[0] : self.v}
+        return {self.liste_sortie[0] : [self.v]}
     
     def get_ta(self):
         super().get_ta()
