@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from abstractComp import AtomicComponent, Evenement 
+from abstractComp import AtomicComponent 
 import math
 class Buf(AtomicComponent):
     def __init__(self, liste_entree, liste_sortie):
@@ -52,7 +52,7 @@ class Buf(AtomicComponent):
 
     def f_lambda(self):
         super().f_lambda()
-        return ({Evenement.REQ : [0]} if self.etat_courant == 1 else {})
+        return ({self.liste_sortie[0] : [0]} if self.etat_courant == 1 else {})
 
     def get_ta(self):
         super().get_ta()

@@ -4,7 +4,7 @@
 from buf import Buf
 from gen import Gen
 from proc import Proc
-from abstractComp import Evenement
+from evenement import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0

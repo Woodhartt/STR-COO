@@ -2,11 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC, abstractmethod
-from enum import Enum
-class Evenement(Enum):
-    JOB = 1
-    REQ = 2
-    DONE = 3
 
 class AtomicComponent(ABC):
     def __init__(self):

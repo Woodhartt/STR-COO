@@ -5,7 +5,7 @@ from step import Step
 from adder import Adder
 from integrateur import Integrateur
 from qss import Qss
-from abstractComp import Evenement
+from evenement import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0

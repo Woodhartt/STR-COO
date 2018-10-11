@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from abstractComp import AtomicComponent, Evenement
+from abstractComp import AtomicComponent
 
 class Gen(AtomicComponent):
     def __init__(self, liste_sortie):
@@ -26,7 +26,7 @@ class Gen(AtomicComponent):
     
     def f_lambda(self):
         super().f_lambda()
-        return {Evenement.JOB : [0]}
+        return {self.liste_sortie[0] : [0]}
     
     def get_ta(self):
         super().get_ta()

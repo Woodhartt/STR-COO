@@ -2,12 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC, abstractmethod
-from enum import Enum
-class Evenement(Enum):
-    XV = 1
-    X_POINT = 2
-    RES = 3
-    QI = 4
 
 class AtomicComponent(ABC):
     def __init__(self):

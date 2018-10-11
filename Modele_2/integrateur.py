@@ -5,8 +5,6 @@ Created on Fri Oct  5 16:06:25 2018
 
 @author: florian
 """
-
-
 from abstractComp import AtomicComponent
 class Integrateur(AtomicComponent):
     def __init__(self, liste_entree, liste_sortie, h=10e-4):

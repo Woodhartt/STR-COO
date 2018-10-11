@@ -5,7 +5,7 @@ from cste import Constant
 from qss import Qss
 from qssspe import QssSpe
 from rebond import Rebond
-from abstractComp import Evenement
+from evenement import Evenement
 import matplotlib.pyplot as plt
 
 temps = 0
